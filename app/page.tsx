@@ -1,38 +1,28 @@
-import CompanionCard from '@/components/CompanionCard'
-import CompanionList from '@/components/CompanionList'
-import CTA from '@/components/CTA'
-import { recentSessions } from '@/constants'
-import React from 'react'
+import CompanionCard from "@/components/CompanionCard";
+import CompanionList from "@/components/CompanionList";
+import CTA from "@/components/CTA";
+import {
+  getAllCompanions,
+  getRecentSessions,
+} from "@/lib/actions/companions.actions";
+import { getSubjectColor } from "@/lib/utils";
+import React from "react";
 
-const Page = () => {
+const Page = async () => {
+  const companions = await getAllCompanions({ limit: 3 });
+  const recentSessions = await getRecentSessions();
+
   return (
     <main>
       <h1>Lets Go Boy! Devesh OP</h1>
       <section className="home-section">
-        <CompanionCard
-          id="123"
-          name="Three musketers"
-          topic="2 grils gang that attacked the villains"
-          subject="Arcade"
-          duration={45}
-          color="#ffda6e"
-        />
-        <CompanionCard
-          id="123"
-          name="Three musketers"
-          topic="2 grils gang that attacked the villains"
-          subject="Arcade"
-          duration={45}
-          color="#ffda6e"
-        />
-        <CompanionCard
-          id="123"
-          name="Three musketers"
-          topic="2 grils gang that attacked the villains"
-          subject="Arcade"
-          duration={45}
-          color="#ffda6e"
-        />
+        {companions.map((companion) => (
+          <CompanionCard
+            key={companion.id}
+            {...companion}
+            color={getSubjectColor(companion.subject)}
+          />
+        ))}
       </section>
       <section className="home-section">
         <CompanionList
@@ -44,6 +34,6 @@ const Page = () => {
       </section>
     </main>
   );
-}
+};
 
-export default Page
+export default Page;

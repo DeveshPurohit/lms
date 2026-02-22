@@ -3,8 +3,16 @@ import React from 'react'
 
 const Subscriptions = () => {
   return (
-    <div><PricingTable/></div>
-  )
+    <main>
+      <PricingTable
+        appearance={{
+          variables: {
+            colorPrimary: "#8259cd",
+          },
+        }}
+      />
+    </main>
+  );
 }
 
 export default Subscriptions
